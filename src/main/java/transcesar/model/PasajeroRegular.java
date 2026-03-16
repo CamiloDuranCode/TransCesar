@@ -12,8 +12,9 @@ public class PasajeroRegular extends Pasajero implements Imprimible{
     }
 
     @Override
-    public String imprimirDetalle() {
-        return "Pasajero Regular: " + nombre + " - " + cedula;
+    public void imprimirDetalle() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cedula: " + cedula);
     }
 
 }
