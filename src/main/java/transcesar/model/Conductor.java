@@ -12,7 +12,10 @@ public class Conductor extends Persona implements Imprimible{
     }
 
     @Override
-    public String imprimirDetalle() {
-        return "Conductor: " + nombre + " - " + cedula + " - " + numLicencia + " - " + categoria;
+    public void imprimirDetalle() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cedula: " + cedula);
+        System.out.println("Numero de licencia: " + numLicencia);
+        System.out.println("Categoria: " + categoria);
     }
 }

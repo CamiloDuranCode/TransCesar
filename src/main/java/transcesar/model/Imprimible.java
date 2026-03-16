@@ -1,5 +1,5 @@
 package transcesar.model;
 
 public interface Imprimible {
-    String imprimirDetalle();
+    void imprimirDetalle();
 }

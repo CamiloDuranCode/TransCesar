@@ -12,8 +12,9 @@ public class PasajeroAdultoMayor extends Pasajero implements Imprimible{
     }
 
     @Override
-    public String imprimirDetalle() {
-        return "Pasajero Adulto Mayor: " + nombre + " - " + cedula;
+    public void imprimirDetalle() {
+        System.out.println("Nombre: " + nombre);
+        System.out.println("Cedula: " + cedula);
     }
 
 
