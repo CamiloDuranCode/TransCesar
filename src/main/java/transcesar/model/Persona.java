@@ -2,8 +2,8 @@ package transcesar.model;
 
 public abstract class Persona {
 
-    private String cedula;
-    private String nombre;
+    protected String cedula;
+    protected String nombre;
 
     public Persona(String cedula, String nombre) {
         this.cedula = cedula;
