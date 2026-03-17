@@ -1,4 +1,30 @@
 package transcesar.view;
 
+import java.util.Scanner;
+
 public class Menu {
+    static Scanner scanner = new Scanner(System.in);
+
+    public static void main(String[] args) {
+        int opcion;
+        do {
+            System.out.println("\n===== TRANSCESAR S.A.S. =====");
+            System.out.println("1. Gestión de Vehículos");
+            System.out.println("2. Gestión de Personas");
+            System.out.println("3. Venta de Tickets");
+            System.out.println("4. Consultas y Estadísticas");
+            System.out.println("0. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = scanner.nextInt();
+
+            switch (opcion) {
+                case 1 -> MenuVehiculos.mostrar();
+                case 2 -> MenuPersonas.mostrar();
+                case 3 -> MenuTickets.mostrar();
+                case 4 -> MenuEstadisticas.mostrar();
+                case 0 -> System.out.println("Hasta luego.");
+                default -> System.out.println("Opción no válida.");
+            }
+        } while (opcion != 0);
+    }
 }
