@@ -4,8 +4,8 @@ public class Buseta extends Vehiculo implements Imprimible {
 
     private final double TARIFA = 8000;
 
-    public Buseta(String placa, String ruta) {
-        super(placa, ruta, 19);
+    public Buseta(String placa, String ruta, boolean estado) {
+        super(placa, ruta, 45, estado);
     }
 
     @Override
