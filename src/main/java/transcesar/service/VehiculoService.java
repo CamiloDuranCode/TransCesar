@@ -19,6 +19,11 @@ public class VehiculoService {
     }
 
     public void registrarVehiculo(Vehiculo vehiculo) {
+        if (placaExiste(vehiculo.getPlaca())) {
+            System.out.println("Error: ya existe un vehículo con la placa "
+                    + vehiculo.getPlaca());
+            return;
+        }
         vehiculos.add(vehiculo);
         vehiculoDAO.guardarVehiculo(vehiculo);
         System.out.println("Vehículo registrado: " + vehiculo.getPlaca());
@@ -43,4 +48,14 @@ public class VehiculoService {
             ((Imprimible) v).imprimirDetalle();
         }
     }
+    private boolean placaExiste(String placa) {
+        for (Vehiculo v : vehiculos) {
+            if (v.getPlaca().equalsIgnoreCase(placa)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
+
