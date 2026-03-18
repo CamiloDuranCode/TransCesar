@@ -4,8 +4,8 @@ public class MicroBus extends Vehiculo implements Imprimible{
 
     private final double TARIFA = 10000;
 
-    public MicroBus (String placa, String ruta){
-        super(placa, ruta, 25);
+    public MicroBus(String placa, String ruta, boolean estado) {
+        super(placa, ruta, 45, estado);
     }
 
     @Override

@@ -5,13 +5,15 @@ public abstract class Vehiculo {
     protected String ruta;
     protected int capacidadMaxima;
     protected int contadorPasajeros;
+    protected boolean estado;
 
 
-    public Vehiculo(String placa, String ruta, int capacidadMaxima) {
+    public Vehiculo(String placa, String ruta, int capacidadMaxima,boolean estado) {
         this.placa = placa;
         this.ruta = ruta;
         this.capacidadMaxima = capacidadMaxima;
         this.contadorPasajeros = 0;
+        this.estado = true;
     }
 
 
@@ -37,7 +39,15 @@ public abstract class Vehiculo {
         return contadorPasajeros;
     }
 
+    public boolean getEstado() {
+        return estado;
+    }
+
     public void setRuta(String ruta) {
         this.ruta = ruta;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 }

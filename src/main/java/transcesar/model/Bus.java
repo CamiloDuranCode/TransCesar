@@ -4,8 +4,8 @@ public class Bus extends Vehiculo implements Imprimible{
 
     private final double TARIFA = 15000;
 
-    public Bus(String placa, String ruta) {
-        super(placa, ruta, 45);
+    public Bus(String placa, String ruta, boolean estado) {
+        super(placa, ruta, 45, estado);
     }
 
     @Override

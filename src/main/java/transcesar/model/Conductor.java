@@ -2,13 +2,21 @@ package transcesar.model;
 
 public class Conductor extends Persona implements Imprimible{
 
-    protected String numLicencia;
-    protected String categoria;
+    private String numLicencia;
+    private String categoria;
 
     public Conductor(String cedula, String nombre, String numLicencia, String categoria) {
         super(cedula, nombre);
         this.numLicencia = numLicencia;
         this.categoria = categoria;
+    }
+
+    public String getNumLicencia() {
+        return numLicencia;
+    }
+
+    public String getCategoria() {
+        return categoria;
     }
 
     @Override
