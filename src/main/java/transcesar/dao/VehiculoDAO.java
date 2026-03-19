@@ -1,14 +1,14 @@
 package transcesar.dao;
 
-import transcesar.model.Vehiculo;
 import transcesar.model.Bus;
 import transcesar.model.Buseta;
 import transcesar.model.MicroBus;
+import transcesar.model.Ruta;
+import transcesar.model.Vehiculo;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class VehiculoDAO {
 
@@ -16,7 +16,6 @@ public class VehiculoDAO {
     private static final String ARCHIVO_BUS      = "bus.txt";
     private static final String ARCHIVO_MICROBUS = "microbus.txt";
     private static final String SEP              = ";";
-
 
     public void guardarVehiculo(Vehiculo vehiculo) {
         String archivo = obtenerArchivo(vehiculo);
@@ -30,14 +29,16 @@ public class VehiculoDAO {
         try (BufferedWriter bw = new BufferedWriter(
                 new FileWriter(archivo, true))) {
 
+            String codigoRuta = vehiculo.getRuta() != null
+                    ? vehiculo.getRuta().getCodigo() : "";
+
             String linea = vehiculo.getPlaca()
-                    + SEP + vehiculo.getRuta()
+                    + SEP + codigoRuta
                     + SEP + vehiculo.getEstado();
 
             bw.write(linea);
             bw.newLine();
-            System.out.println("[VehiculoDAO] Guardado en "
-                    + archivo + " → " + linea);
+            System.out.println("[VehiculoDAO] Guardado en " + archivo + " → " + linea);
 
         } catch (IOException e) {
             System.out.println("[VehiculoDAO] Error al escribir en "
@@ -45,20 +46,20 @@ public class VehiculoDAO {
         }
     }
 
-    public List<Vehiculo> cargarVehiculos() {
+    public List<Vehiculo> cargarVehiculos(List<Ruta> rutas) {
         List<Vehiculo> lista = new ArrayList<>();
 
-        lista.addAll(leerArchivo(ARCHIVO_BUSETA,   "buseta"));
-        lista.addAll(leerArchivo(ARCHIVO_BUS,      "bus"));
-        lista.addAll(leerArchivo(ARCHIVO_MICROBUS, "microbus"));
+        lista.addAll(leerArchivo(ARCHIVO_BUSETA,   "buseta",   rutas));
+        lista.addAll(leerArchivo(ARCHIVO_BUS,      "bus",      rutas));
+        lista.addAll(leerArchivo(ARCHIVO_MICROBUS, "microbus", rutas));
 
-        System.out.println("[VehiculoDAO] Vehículos cargados al inicio: "
-                + lista.size());
+        System.out.println("[VehiculoDAO] Vehículos cargados al inicio: " + lista.size());
         return lista;
     }
 
-    private List<Vehiculo> leerArchivo(String nombreArchivo, String tipo) {
-        List<Vehiculo> lista  = new ArrayList<>();
+    private List<Vehiculo> leerArchivo(String nombreArchivo,
+                                       String tipo, List<Ruta> rutas) {
+        List<Vehiculo> lista   = new ArrayList<>();
         File           archivo = new File(nombreArchivo);
 
         if (!archivo.exists()) {
@@ -85,10 +86,11 @@ public class VehiculoDAO {
                     continue;
                 }
 
-                String  placa  = p[0].trim();
-                String  ruta   = p[1].trim();
-                boolean estado = Boolean.parseBoolean(p[2].trim());
+                String  placa      = p[0].trim();
+                String  codigoRuta = p[1].trim();
+                boolean estado     = Boolean.parseBoolean(p[2].trim());
 
+                Ruta ruta = buscarRuta(codigoRuta, rutas);
                 Vehiculo v = instanciar(tipo, placa, ruta, estado);
                 if (v != null) lista.add(v);
             }
@@ -104,8 +106,15 @@ public class VehiculoDAO {
         return lista;
     }
 
+    private Ruta buscarRuta(String codigo, List<Ruta> rutas) {
+        for (Ruta r : rutas) {
+            if (r.getCodigo().equalsIgnoreCase(codigo)) return r;
+        }
+        return null;
+    }
+
     private Vehiculo instanciar(String tipo, String placa,
-                                String ruta, boolean estado) {
+                                Ruta ruta, boolean estado) {
         switch (tipo.toLowerCase()) {
             case "buseta":   return new Buseta(placa, ruta, estado);
             case "bus":      return new Bus(placa, ruta, estado);
