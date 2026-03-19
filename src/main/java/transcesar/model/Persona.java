@@ -1,13 +1,17 @@
 package transcesar.model;
 
+import java.time.LocalDate;
+
 public abstract class Persona {
 
     protected String cedula;
     protected String nombre;
+    protected LocalDate fechaNacimiento;
 
-    public Persona(String cedula, String nombre) {
+    public Persona(String cedula, String nombre, LocalDate fechaNacimiento) {
         this.cedula = cedula;
         this.nombre = nombre;
+        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getCedula() {
@@ -24,5 +28,18 @@ public abstract class Persona {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public LocalDate getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(LocalDate fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public int getEdad() {
+        if (fechaNacimiento == null) return 0;
+        return LocalDate.now().getYear() - fechaNacimiento.getYear();
     }
 }
