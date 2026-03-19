@@ -48,7 +48,7 @@ public class VehiculoService {
             ((Imprimible) v).imprimirDetalle();
         }
     }
-    
+
     public void vehiculoConMasTickets(List<Ticket> tickets) {
         if (tickets.isEmpty()) {
             System.out.println("No hay tickets registrados.");
