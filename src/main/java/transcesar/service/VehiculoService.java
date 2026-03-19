@@ -2,11 +2,11 @@ package transcesar.service;
 
 import transcesar.dao.VehiculoDAO;
 import transcesar.model.Conductor;
-import transcesar.model.Vehiculo;
 import transcesar.model.Imprimible;
+import transcesar.model.Ticket;
+import transcesar.model.Vehiculo;
 
 import java.util.List;
-
 
 public class VehiculoService {
 
@@ -48,6 +48,40 @@ public class VehiculoService {
             ((Imprimible) v).imprimirDetalle();
         }
     }
+    
+    public void vehiculoConMasTickets(List<Ticket> tickets) {
+        if (tickets.isEmpty()) {
+            System.out.println("No hay tickets registrados.");
+            return;
+        }
+
+        Vehiculo masTickets = null;
+        int mayor = 0;
+
+        for (Vehiculo v : vehiculos) {
+            int contador = 0;
+            for (Ticket t : tickets) {
+                if (t.getVehiculo().getPlaca().equalsIgnoreCase(v.getPlaca())) {
+                    contador++;
+                }
+            }
+            if (contador > mayor) {
+                mayor      = contador;
+                masTickets = v;
+            }
+        }
+
+        if (masTickets != null) {
+            System.out.println("Vehículo con más tickets vendidos:");
+            System.out.println("Placa  : " + masTickets.getPlaca());
+            System.out.println("Ruta   : " + masTickets.getRuta());
+            System.out.println("Tickets: " + mayor);
+        } else {
+            System.out.println("Ningún vehículo tiene tickets vendidos.");
+        }
+    }
+
+
     private boolean placaExiste(String placa) {
         for (Vehiculo v : vehiculos) {
             if (v.getPlaca().equalsIgnoreCase(placa)) {
@@ -56,6 +90,5 @@ public class VehiculoService {
         }
         return false;
     }
-
 }
 
