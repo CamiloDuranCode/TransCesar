@@ -61,10 +61,17 @@ public class TicketService {
             return;
         }
 
+        LocalDate fechaCompra = LocalDate.now();
+
+        if (esFestivo(fechaCompra)) {
+            double recargo = vehiculo.tarifabase() * 0.20;
+            System.out.println("Día festivo — recargo del 20% aplicado: +$" + recargo);
+        }
+
         Ticket ticket = new Ticket(
                 pasajero,
                 vehiculo,
-                LocalDate.now(),
+                fechaCompra,
                 origen,
                 destino
         );
@@ -75,7 +82,6 @@ public class TicketService {
 
         System.out.println("Ticket vendido correctamente. Valor final: $" + ticket.getValorFinal());
     }
-
 
     public boolean esFestivo(LocalDate fecha) {
         MonthDay dia = MonthDay.from(fecha);
