@@ -93,5 +93,9 @@ public class TicketService {
         return totalRecaudado;
     }
 
+    public void actualizarEstadisticasManual(Ticket ticket) {
+        actualizarEstadisticas(ticket);
+    }
+
 
 }

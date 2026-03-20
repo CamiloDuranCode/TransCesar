@@ -20,7 +20,8 @@ public class Reserva implements Imprimible{
     public enum EstadoReserva {
         PENDIENTE,
         CONFIRMADA,
-        CANCELADA
+        CANCELADA,
+        COMPLETADA,
     }
 
     public Reserva(String idReserva, LocalDateTime fechaCreacion,

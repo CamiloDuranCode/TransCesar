@@ -97,7 +97,6 @@ public class ReservaService {
                             " tickets para esta fecha. Reserva cancelada."
             );
         }
-
         if (conductor.getVehiculo() == null) {
             throw new IllegalArgumentException(
                     "El conductor no tiene un vehículo asignado"
@@ -149,7 +148,7 @@ public class ReservaService {
 
     private boolean validarLimiteTicketsPorDia(Pasajero pasajero, LocalDate fecha)
             throws IOException {
-        
+
         List<Reserva> reservasDelDia = reservaDAO.buscarPorPasajero(pasajero.getCedula())
                 .stream()
                 .filter(r -> r.getFechaViaje().equals(fecha))
@@ -192,7 +191,6 @@ public class ReservaService {
             throws IOException {
         return reservaDAO.buscarPorEstado(estado);
     }
-
 
     public List<Reserva> listarTodasLasReservas() throws IOException {
         return reservaDAO.listarTodos();
