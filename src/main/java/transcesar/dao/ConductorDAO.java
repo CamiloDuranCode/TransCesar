@@ -2,6 +2,7 @@ package transcesar.dao;
 
 import transcesar.model.Conductor;
 import java.io.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class ConductorDAO {
@@ -14,6 +15,7 @@ public class ConductorDAO {
 
         String linea = conductor.getNombre() + ";" +
                 conductor.getCedula() + ";" +
+                conductor.getFechaNacimiento() + ";" +
                 conductor.getNumLicencia() + ";" +
                 conductor.getCategoria();
 
@@ -33,10 +35,13 @@ public class ConductorDAO {
 
             String[] datos = linea.split(";");
 
+            LocalDate fechaNac = LocalDate.parse(datos[2]);
+
             Conductor c = new Conductor(
                     datos[1],
                     datos[0],
-                    datos[2],
+                    fechaNac,
+                    datos[3],
                     datos[3]
             );
             lista.add(c);
