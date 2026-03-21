@@ -65,7 +65,7 @@ public class TicketService {
 
     }
 
-    private void actualizarEstadisticas(Ticket ticket) {
+    public void actualizarEstadisticas(Ticket ticket) {
 
         totalRecaudado += ticket.getValorFinal();
         
