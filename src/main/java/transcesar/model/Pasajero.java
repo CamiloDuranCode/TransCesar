@@ -2,7 +2,7 @@ package transcesar.model;
 
 import java.time.LocalDate;
 
-public abstract class Pasajero extends Persona  {
+public class Pasajero extends Persona  {
 
     public Pasajero(String cedula, String nombre, LocalDate fechaNacimiento) {
         super(cedula, nombre,fechaNacimiento);

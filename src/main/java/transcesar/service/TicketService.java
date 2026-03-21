@@ -9,6 +9,7 @@ import transcesar.model.Vehiculo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TicketService {
@@ -81,6 +82,10 @@ public class TicketService {
         }
     }
 
+    public List<Ticket> getTickets() {
+        return ticketDAO.cargarTickets();
+    }
+
     public void mostrarEstadisticas() {
         System.out.println("\n========== ESTADÍSTICAS ==========");
         System.out.println("Total recaudado: $" + totalRecaudado);
@@ -93,10 +98,6 @@ public class TicketService {
 
     public double getTotalRecaudado() {
         return totalRecaudado;
-    }
-
-    public void actualizarEstadisticasManual(Ticket ticket) {
-        actualizarEstadisticas(ticket);
     }
 
 
