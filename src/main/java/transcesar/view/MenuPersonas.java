@@ -1,6 +1,9 @@
 package transcesar.view;
 
+import transcesar.model.Conductor;
+import transcesar.model.Pasajero;
 import transcesar.service.PersonaService;
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class MenuPersonas {
@@ -28,24 +31,39 @@ public class MenuPersonas {
     }
 
     private static void registrarConductor() {
-        System.out.print("Cédula: ");
-        String cedula = scanner.next();
-        System.out.print("Nombre: ");
-        String nombre = scanner.next();
-        System.out.print("Número de licencia: ");
-        String numLicencia = scanner.next();
-        System.out.print("Categoría (B1/B2/C1/C2): ");
-        String categoria = scanner.next();
-        personaService.registrarConductor(cedula, nombre, numLicencia, categoria);
+        try {
+            System.out.print("Cédula: ");
+            String cedula = scanner.next();
+            System.out.print("Nombre: ");
+            String nombre = scanner.next();
+            System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+            LocalDate fechaNacimiento = LocalDate.parse(scanner.next());
+            System.out.print("Número de licencia: ");
+            String numLicencia = scanner.next();
+            System.out.print("Categoría (B1/B2/C1/C2): ");
+            String categoria = scanner.next();
+            Conductor conductor = new Conductor(cedula, nombre, fechaNacimiento, numLicencia, categoria);
+            personaService.registrarConductor(conductor);
+            System.out.println("Conductor registrado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Error al registrar conductor: " + e.getMessage());
+        }
     }
 
     private static void registrarPasajero() {
-        System.out.print("Cédula: ");
-        String cedula = scanner.next();
-        System.out.print("Nombre: ");
-        String nombre = scanner.next();
-        System.out.print("Tipo (Regular/Estudiante/AdultoMayor): ");
-        String tipo = scanner.next();
-        personaService.registrarPasajero(cedula, nombre, tipo);
+        try {
+            System.out.print("Cédula: ");
+            String cedula = scanner.next();
+            System.out.print("Nombre: ");
+            String nombre = scanner.next();
+            System.out.print("Fecha de nacimiento (YYYY-MM-DD): ");
+            LocalDate fechaNacimiento = LocalDate.parse(scanner.next());
+            Pasajero pasajero = new Pasajero(cedula, nombre, fechaNacimiento);
+            System.out.println("Tipo detectado: " + pasajero.getTipoPasajero());
+            personaService.registrarPasajero(pasajero);
+            System.out.println("Pasajero registrado exitosamente.");
+        } catch (Exception e) {
+            System.out.println("Error al registrar pasajero: " + e.getMessage());
+        }
     }
 }
