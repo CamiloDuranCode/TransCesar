@@ -30,12 +30,14 @@ public class TicketService {
     public void venderTicket(Pasajero pasajero, Conductor conductor, double tarifaBase,
                              String origen, String destino) throws IOException {
 
-        if(cuposDisponibles <= 0){
-            System.out.println("No hay cupos disponibles");
+        Vehiculo vehiculo = null;
+
+        if (vehiculo.getContadorPasajeros() >= vehiculo.getCapacidadMaxima()) {
+            System.out.println("No hay cupos disponibles en el vehículo " + vehiculo.getPlaca());
             return;
         }
 
-        Vehiculo vehiculo = conductor.getVehiculo();
+        vehiculo = conductor.getVehiculo();
 
 
         if (vehiculo == null) {
@@ -51,7 +53,7 @@ public class TicketService {
                 origen,
                 destino
         );
-        
+
         ticketDAO.guardar(ticket);
 
         actualizarEstadisticas(ticket);
