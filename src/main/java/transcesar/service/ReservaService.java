@@ -14,7 +14,7 @@ public class ReservaService {
 
     private ReservaDAO reservaDAO;
     private TicketDAO ticketDAO;
-    public TicketService ticketService;
+    private TicketService ticketService;
 
 
     private static final int MAX_TICKETS_POR_DIA = 3;
@@ -179,13 +179,13 @@ public class ReservaService {
     private boolean validarDisponibilidadVehiculo(Vehiculo vehiculo, LocalDate fecha)
             throws IOException {
 
-        List<Reserva> reservasVehiculo = reservaDAO.buscarPorFecha(fecha)
+        long reservasActivas = reservaDAO.buscarPorFecha(fecha)
                 .stream()
                 .filter(r -> r.getVehiculo().getPlaca().equals(vehiculo.getPlaca()))
                 .filter(r -> r.getEstado() == Reserva.EstadoReserva.ACTIVA)
-                .toList();
+                .count();
 
-        return reservasVehiculo.isEmpty();
+        return reservasActivas < vehiculo.getCapacidadMaxima();
     }
 
     private String generarIdReserva() {
