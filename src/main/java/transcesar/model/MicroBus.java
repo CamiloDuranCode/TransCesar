@@ -1,18 +1,23 @@
 package transcesar.model;
 
-public class MicroBus extends Vehiculo implements Imprimible {
+public class MicroBus extends Vehiculo {
 
     private final double TARIFA = 10000;
 
     public MicroBus(String placa, Ruta ruta, boolean estado) {
+
         super(placa, ruta, 25, estado);
     }
 
     @Override
-    public double tarifabase() { return TARIFA; }
+    public double tarifabase() {
+        return TARIFA;
+    }
 
     @Override
-    public String getTipoVehiculo() { return "MicroBus"; }
+    public String getTipoVehiculo() {
+        return "MicroBus";
+    }
 
     @Override
     public void imprimirDetalle() {
