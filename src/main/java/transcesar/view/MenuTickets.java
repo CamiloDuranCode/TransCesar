@@ -33,7 +33,7 @@ public class MenuTickets {
                     if (tickets.isEmpty()) {
                         System.out.println("No hay tickets registrados.");
                     } else {
-                        tickets.forEach(t -> t.imprimirDetalle());
+                        tickets.forEach(Ticket::imprimirDetalle);
                     }
                 }
                 case 0 -> System.out.println("Volviendo...");
@@ -44,7 +44,6 @@ public class MenuTickets {
 
     private static void venderTicket() {
         try {
-            // Listar conductores disponibles
             List<Conductor> conductores = personaService.getConductores();
             if (conductores.isEmpty()) {
                 System.out.println("No hay conductores registrados.");
@@ -57,7 +56,6 @@ public class MenuTickets {
             System.out.print("Seleccione un conductor: ");
             Conductor conductor = conductores.get(scanner.nextInt() - 1);
 
-            // Listar pasajeros disponibles
             List<Pasajero> pasajeros = personaService.getPasajeros();
             if (pasajeros.isEmpty()) {
                 System.out.println("No hay pasajeros registrados.");
@@ -76,7 +74,7 @@ public class MenuTickets {
             System.out.print("Destino: ");
             String destino = scanner.next();
 
-            ticketService.venderTicket(pasajero, conductor, 0, origen, destino);
+            ticketService.venderTicket(pasajero, conductor, origen, destino);
 
         } catch (Exception e) {
             System.out.println("Error al vender ticket: " + e.getMessage());
