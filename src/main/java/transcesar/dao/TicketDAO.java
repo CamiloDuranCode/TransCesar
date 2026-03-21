@@ -25,6 +25,7 @@ public class TicketDAO {
         bw.close();
     }
 
-
-
+    public List<Ticket> cargarTickets() {
+        return null;
+    }
 }
