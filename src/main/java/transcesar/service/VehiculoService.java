@@ -65,7 +65,7 @@ public class VehiculoService {
             return;
         }
         for (Vehiculo v : vehiculos) {
-            ((Imprimible) v).imprimirDetalle();
+            v.imprimirDetalle();
         }
     }
 
