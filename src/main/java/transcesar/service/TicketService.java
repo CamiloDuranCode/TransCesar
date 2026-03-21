@@ -62,7 +62,7 @@ public class TicketService {
         pasajerosPorTipo.put(tipo, pasajerosPorTipo.getOrDefault(tipo, 0) + 1);
     }
 
-    public List<Ticket> getTickets() {
+    public List<Ticket> getTickets() throws IOException {
         return ticketDAO.cargarTickets();
     }
 
@@ -81,7 +81,7 @@ public class TicketService {
     }
 
 
-    public void resumenDiaActual() {
+    public void resumenDiaActual() throws IOException {
         LocalDate hoy = LocalDate.now();
         List<Ticket> tickets = ticketDAO.cargarTickets();
         long totalHoy = tickets.stream()
@@ -98,19 +98,19 @@ public class TicketService {
         System.out.println("===========================");
     }
 
-    public void listarTicketsPorFecha(LocalDate fecha) {
+    public void listarTicketsPorFecha(LocalDate fecha) throws IOException {
         ticketDAO.cargarTickets().stream()
                 .filter(t -> t.getFechaCompra().equals(fecha))
                 .forEach(Ticket::imprimirDetalle);
     }
 
-    public void listarTicketsPorTipoVehiculo(String tipo) {
+    public void listarTicketsPorTipoVehiculo(String tipo) throws IOException {
         ticketDAO.cargarTickets().stream()
                 .filter(t -> t.getVehiculo().getClass().getSimpleName().equalsIgnoreCase(tipo))
                 .forEach(Ticket::imprimirDetalle);
     }
 
-    public void listarTicketsPorTipoPasajero(String tipo) {
+    public void listarTicketsPorTipoPasajero(String tipo) throws IOException {
         ticketDAO.cargarTickets().stream()
                 .filter(t -> t.getPasajero().getTipoPasajero().equalsIgnoreCase(tipo))
                 .forEach(Ticket::imprimirDetalle);

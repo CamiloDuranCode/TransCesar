@@ -1,6 +1,8 @@
 package transcesar.view;
 
 import transcesar.service.TicketService;
+
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -9,7 +11,7 @@ public class MenuReportes {
     static Scanner scanner = new Scanner(System.in);
     static TicketService ticketService = new TicketService();
 
-    public static void mostrar() {
+    public static void mostrar() throws IOException {
         int opcion;
         do {
             System.out.println("\n===== MÓDULO DE REPORTES =====");
