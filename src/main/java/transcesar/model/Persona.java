@@ -2,7 +2,7 @@ package transcesar.model;
 
 import java.time.LocalDate;
 
-public class Persona {
+public abstract class Persona {
 
     protected String cedula;
     protected String nombre;
