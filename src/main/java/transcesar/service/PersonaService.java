@@ -14,7 +14,13 @@ public class PersonaService {
     private PasajeroDAO pasajeroDAO = new PasajeroDAO();
 
     public void registrarConductor(Conductor conductor) throws IOException {
+        if (conductor.getNumLicencia() == null
+                || conductor.getNumLicencia().trim().isEmpty()) {
+            System.out.println("Error: el conductor debe tener licencia registrada.");
+            return;
+        }
         conductorDAO.guardar(conductor);
+        System.out.println("Conductor registrado exitosamente.");
     }
 
     public List<Conductor> getConductores() throws IOException {
