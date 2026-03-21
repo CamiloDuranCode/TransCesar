@@ -3,7 +3,7 @@ package transcesar.model;
 import java.time.LocalDate;
 import java.time.Period;
 
-public class Persona {
+public abstract class Persona implements Imprimible {
 
     protected String cedula;
     protected String nombre;
@@ -43,4 +43,7 @@ public class Persona {
         if (fechaNacimiento == null) return 0;
         return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
+
+    @Override
+    public abstract void imprimirDetalle();
 }
