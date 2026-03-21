@@ -1,8 +1,13 @@
 package transcesar.service;
 
+import transcesar.dao.RutaDao;
 import transcesar.dao.VehiculoDAO;
+import transcesar.model.Bus;
+import transcesar.model.Buseta;
 import transcesar.model.Conductor;
 import transcesar.model.Imprimible;
+import transcesar.model.MicroBus;
+import transcesar.model.Ruta;
 import transcesar.model.Ticket;
 import transcesar.model.Vehiculo;
 
@@ -11,22 +16,38 @@ import java.util.List;
 public class VehiculoService {
 
     private final VehiculoDAO vehiculoDAO;
+    private final RutaDao rutaDao = new RutaDao();
     private final List<Vehiculo> vehiculos;
+    private final List<Ruta> rutas;
 
     public VehiculoService(VehiculoDAO vehiculoDAO, List<Vehiculo> vehiculos) {
         this.vehiculoDAO = vehiculoDAO;
-        this.vehiculos   = vehiculos;
+        this.rutas       = rutaDao.cargarRutas();
+        this.vehiculos   = vehiculoDAO.cargarVehiculos(rutas);
     }
 
-    public void registrarVehiculo(Vehiculo vehiculo) {
-        if (placaExiste(vehiculo.getPlaca())) {
-            System.out.println("Error: ya existe un vehículo con la placa "
-                    + vehiculo.getPlaca());
+    public void registrarVehiculo(String tipo, String placa, Ruta ruta) {
+        if (ruta == null) {
+            System.out.println("Error: la ruta no puede ser nula.");
             return;
+        }
+        if (placaExiste(placa)) {
+            System.out.println("Error: ya existe un vehículo con la placa " + placa);
+            return;
+        }
+        Vehiculo vehiculo;
+        switch (tipo.toLowerCase()) {
+            case "bus"      -> vehiculo = new Bus(placa, ruta, true);
+            case "buseta"   -> vehiculo = new Buseta(placa, ruta, true);
+            case "microbus" -> vehiculo = new MicroBus(placa, ruta, true);
+            default -> {
+                System.out.println("Tipo de vehículo no válido.");
+                return;
+            }
         }
         vehiculos.add(vehiculo);
         vehiculoDAO.guardarVehiculo(vehiculo);
-        System.out.println("Vehículo registrado: " + vehiculo.getPlaca());
+        System.out.println("Vehículo registrado: " + placa);
     }
 
     public void asignarConductor(Vehiculo vehiculo, Conductor conductor) {
@@ -46,6 +67,16 @@ public class VehiculoService {
         }
         for (Vehiculo v : vehiculos) {
             ((Imprimible) v).imprimirDetalle();
+        }
+    }
+
+    public void listarRutas() {
+        if (rutas.isEmpty()) {
+            System.out.println("No hay rutas registradas.");
+            return;
+        }
+        for (Ruta r : rutas) {
+            r.imprimirDetalle();
         }
     }
 
@@ -79,6 +110,10 @@ public class VehiculoService {
         } else {
             System.out.println("Ningún vehículo tiene tickets vendidos.");
         }
+    }
+
+    public List<Vehiculo> getVehiculos() {
+        return vehiculos;
     }
 
 
