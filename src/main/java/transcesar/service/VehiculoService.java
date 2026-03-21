@@ -20,8 +20,8 @@ public class VehiculoService {
     private final List<Vehiculo> vehiculos;
     private final List<Ruta> rutas;
 
-    public VehiculoService(VehiculoDAO vehiculoDAO, List<Vehiculo> vehiculos) {
-        this.vehiculoDAO = vehiculoDAO;
+    public VehiculoService() {
+        this.vehiculoDAO = new VehiculoDAO();
         this.rutas       = rutaDao.cargarRutas();
         this.vehiculos   = vehiculoDAO.cargarVehiculos();
     }
@@ -70,14 +70,8 @@ public class VehiculoService {
         }
     }
 
-    public void listarRutas() {
-        if (rutas.isEmpty()) {
-            System.out.println("No hay rutas registradas.");
-            return;
-        }
-        for (Ruta r : rutas) {
-            r.imprimirDetalle();
-        }
+    public List<Ruta> listarRutas() {
+        return rutaDao.cargarRutas();
     }
 
     public void vehiculoConMasTickets(List<Ticket> tickets) {
