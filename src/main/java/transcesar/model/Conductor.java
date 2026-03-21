@@ -2,7 +2,7 @@ package transcesar.model;
 
 import java.time.LocalDate;
 
-public class Conductor extends Persona implements Imprimible{
+public class Conductor extends Persona {
 
     private String numLicencia;
     private String categoria;
