@@ -14,7 +14,7 @@ public class ReservaService {
 
     private ReservaDAO reservaDAO;
     private TicketDAO ticketDAO;
-    private TicketService ticketService;
+    public TicketService ticketService;
 
 
     private static final int MAX_TICKETS_POR_DIA = 3;
@@ -118,7 +118,7 @@ public class ReservaService {
 
         ticketDAO.guardar(ticket);
 
-        ticketService.actualizarEstadisticasManual(ticket);
+        ticketService.actualizarEstadisticas(ticket);
 
         reserva.convertir();
         reservaDAO.guardar(reserva);
