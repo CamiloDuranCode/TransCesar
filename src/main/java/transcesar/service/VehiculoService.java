@@ -23,7 +23,7 @@ public class VehiculoService {
     public VehiculoService(VehiculoDAO vehiculoDAO, List<Vehiculo> vehiculos) {
         this.vehiculoDAO = vehiculoDAO;
         this.rutas       = rutaDao.cargarRutas();
-        this.vehiculos   = vehiculoDAO.cargarVehiculos(rutas);
+        this.vehiculos   = vehiculoDAO.cargarVehiculos();
     }
 
     public void registrarVehiculo(String tipo, String placa, Ruta ruta) {
@@ -126,4 +126,3 @@ public class VehiculoService {
         return false;
     }
 }
-
