@@ -22,8 +22,8 @@ public class VehiculoService {
 
     public VehiculoService() {
         this.vehiculoDAO = new VehiculoDAO();
-        this.rutas       = rutaDao.cargarRutas();
-        this.vehiculos   = vehiculoDAO.cargarVehiculos();
+        List<Ruta> rutasCargadas = rutaDao.cargarRutas();
+        this.vehiculos = vehiculoDAO.cargarVehiculos(rutasCargadas);
     }
 
     public void registrarVehiculo(String tipo, String placa, Ruta ruta) {
