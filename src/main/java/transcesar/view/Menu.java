@@ -5,8 +5,9 @@ import java.util.Scanner;
 public class Menu {
     static Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public void iniciar() {
         int opcion;
+
         do {
             System.out.println("\n===== TRANSCESAR S.A.S. =====");
             System.out.println("1. Gestión de Vehículos");
