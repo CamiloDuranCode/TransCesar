@@ -1,7 +1,9 @@
 package transcesar.view;
 
+import transcesar.model.Ticket;
 import transcesar.service.TicketService;
 import transcesar.service.VehiculoService;
+import java.util.List;
 import java.util.Scanner;
 
 public class MenuEstadisticas {
@@ -22,7 +24,10 @@ public class MenuEstadisticas {
 
             switch (opcion) {
                 case 1 -> ticketService.mostrarEstadisticas();
-                case 2 -> vehiculoService.vehiculoConMasTickets();
+                case 2 -> {
+                    List<Ticket> tickets = ticketService.getTickets();
+                    vehiculoService.vehiculoConMasTickets(tickets);
+                }
                 case 0 -> System.out.println("Volviendo...");
                 default -> System.out.println("Opción no válida.");
             }

@@ -18,7 +18,6 @@ public class VehiculoService {
     private final VehiculoDAO vehiculoDAO;
     private final RutaDao rutaDao = new RutaDao();
     private final List<Vehiculo> vehiculos;
-    private final List<Ruta> rutas;
 
     public VehiculoService() {
         this.vehiculoDAO = new VehiculoDAO();
