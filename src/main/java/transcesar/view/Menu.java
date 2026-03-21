@@ -25,7 +25,6 @@ public class Menu {
                 case 3 -> MenuTickets.mostrar();
                 case 4 -> MenuEstadisticas.mostrar();
                 case 5 -> MenuReportes.mostrar();
-                case 6 -> MenuReservas.mostrar();
                 case 0 -> System.out.println("Hasta luego.");
                 default -> System.out.println("Opción no válida.");
             }
