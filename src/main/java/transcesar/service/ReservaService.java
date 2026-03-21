@@ -6,6 +6,7 @@ import transcesar.model.*;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,11 +53,9 @@ public class ReservaService {
                 fechaViaje,
                 origen,
                 destino,
-                LocalDate.now()
+                LocalDateTime.now()
         );
 
-
-        reserva.setEstado(Reserva.EstadoReserva.CONFIRMADA);
 
         reservaDAO.guardar(reserva);
 
@@ -74,7 +73,7 @@ public class ReservaService {
             throw new IllegalArgumentException("No existe reserva con ID: " + idReserva);
         }
 
-        if (reserva.getEstado() != Reserva.EstadoReserva.CONFIRMADA) {
+        if (reserva.getEstado() != Reserva.EstadoReserva.ACTIVA) {
             throw new IllegalStateException(
                     "La reserva " + idReserva + " no está confirmada. Estado actual: " +
                             reserva.getEstado()
@@ -89,7 +88,7 @@ public class ReservaService {
         }
 
         if (!validarLimiteTicketsPorDia(reserva.getPasajero(), reserva.getFechaViaje())) {
-            reserva.setEstado(Reserva.EstadoReserva.CANCELADA);
+            reserva.cancelar();
             reservaDAO.guardar(reserva);
 
             throw new IllegalStateException(
@@ -121,7 +120,7 @@ public class ReservaService {
 
         ticketService.actualizarEstadisticasManual(ticket);
 
-        reserva.setEstado(Reserva.EstadoReserva.COMPLETADA);
+        reserva.convertir();
         reservaDAO.guardar(reserva);
 
         System.out.println("Reserva " + idReserva + " convertida a ticket exitosamente");
@@ -136,8 +135,8 @@ public class ReservaService {
             return false;
         }
 
-        if (reserva.getEstado() == Reserva.EstadoReserva.CONFIRMADA) {
-            reserva.setEstado(Reserva.EstadoReserva.CANCELADA);
+        if (reserva.getEstado() == Reserva.EstadoReserva.ACTIVA) {
+            reserva.cancelar();
             reservaDAO.guardar(reserva);
             System.out.println("Reserva " + idReserva + " cancelada");
             return true;
@@ -146,14 +145,32 @@ public class ReservaService {
         return false;
     }
 
+    public int verificarReservasVencidas() throws IOException {
+        List<Reserva> todas = reservaDAO.listarTodos();
+        int canceladas = 0;
+
+        for (Reserva reserva : todas) {
+            if (reserva.getEstado() == Reserva.EstadoReserva.ACTIVA &&
+                    reserva.estaVencida()) {
+                reserva.cancelar();
+                reservaDAO.guardar(reserva);
+                canceladas++;
+                System.out.println("Reserva vencida cancelada: " + reserva.getIdReserva());
+            }
+        }
+
+        System.out.println("Total de reservas vencidas canceladas: " + canceladas);
+        return canceladas;
+    }
+
     private boolean validarLimiteTicketsPorDia(Pasajero pasajero, LocalDate fecha)
             throws IOException {
 
         List<Reserva> reservasDelDia = reservaDAO.buscarPorPasajero(pasajero.getCedula())
                 .stream()
                 .filter(r -> r.getFechaViaje().equals(fecha))
-                .filter(r -> r.getEstado() == Reserva.EstadoReserva.CONFIRMADA ||
-                        r.getEstado() == Reserva.EstadoReserva.COMPLETADA)
+                .filter(r -> r.getEstado() == Reserva.EstadoReserva.ACTIVA ||
+                        r.getEstado() == Reserva.EstadoReserva.CONVERTIDA)
                 .toList();
 
         return reservasDelDia.size() < MAX_TICKETS_POR_DIA;
@@ -165,7 +182,7 @@ public class ReservaService {
         List<Reserva> reservasVehiculo = reservaDAO.buscarPorFecha(fecha)
                 .stream()
                 .filter(r -> r.getVehiculo().getPlaca().equals(vehiculo.getPlaca()))
-                .filter(r -> r.getEstado() == Reserva.EstadoReserva.CONFIRMADA)
+                .filter(r -> r.getEstado() == Reserva.EstadoReserva.ACTIVA)
                 .toList();
 
         return reservasVehiculo.isEmpty();
