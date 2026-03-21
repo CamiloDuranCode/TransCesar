@@ -15,7 +15,7 @@ public class VehiculoService {
 
     public VehiculoService(VehiculoDAO vehiculoDAO, List<Vehiculo> vehiculos) {
         this.vehiculoDAO = vehiculoDAO;
-        this.vehiculos   = vehiculos;
+        this.vehiculos   = vehiculoDAO.cargarVehiculos();
     }
 
     public void registrarVehiculo(Vehiculo vehiculo) {
