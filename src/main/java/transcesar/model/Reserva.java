@@ -14,7 +14,7 @@ public class Reserva implements Imprimible{
     private EstadoReserva estado;
     private LocalDateTime fechaCreacion;
 
-    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo, LocalDate fechaViaje, String origen, String destino, LocalDate fechaCreacion) {
+    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo, LocalDate fechaViaje, String origen, String destino, LocalDateTime fechaCreacion) {
     }
 
     public enum EstadoReserva {

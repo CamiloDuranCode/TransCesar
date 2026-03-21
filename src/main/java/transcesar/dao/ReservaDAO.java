@@ -6,6 +6,7 @@ import transcesar.model.Vehiculo;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -90,7 +91,7 @@ public class ReservaDAO {
     }
 
     private String serializar(Reserva reserva) {
-        return String.join("|",
+        return String.join(";",
                 reserva.getIdReserva(),
                 reserva.getPasajero().getCedula(),
                 reserva.getVehiculo().getPlaca(),
@@ -104,7 +105,7 @@ public class ReservaDAO {
 
     private Reserva deserializar(String linea) {
         try {
-            String[] partes = linea.split("\\|");
+            String[] partes = linea.split(";");
 
             if (partes.length >= 8) {  // Cambiado de 7 a 8
                 String idReserva = partes[0];
@@ -114,7 +115,7 @@ public class ReservaDAO {
                 String origen = partes[4];
                 String destino = partes[5];
                 Reserva.EstadoReserva estado = Reserva.EstadoReserva.valueOf(partes[6]);
-                LocalDate fechaCreacion = LocalDate.parse(partes[7]);
+                LocalDateTime fechaCreacion = LocalDateTime.parse(partes[7]);
 
                 Pasajero pasajero = pasajeroDAO.buscarPorCedula(cedulaPasajero);
                 Vehiculo vehiculo = vehiculoDAO.buscarPorPlaca(placaVehiculo);
@@ -143,8 +144,5 @@ public class ReservaDAO {
         }
         return null;
     }
-
-
-
 
 }
