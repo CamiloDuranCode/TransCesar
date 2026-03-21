@@ -14,26 +14,23 @@ public class Reserva implements Imprimible{
     private EstadoReserva estado;
     private LocalDateTime fechaCreacion;
 
-    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo, LocalDate fechaViaje, String origen, String destino, LocalDateTime fechaCreacion) {
-    }
-
     public enum EstadoReserva {
         ACTIVA,
         CONVERTIDA,
         CANCELADA
     }
 
-    public Reserva(String idReserva, LocalDateTime fechaCreacion,
-                   String destino, String origen,
-                   LocalDate fechaViaje, Vehiculo vehiculo, Pasajero pasajero) {
+    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo,
+                   LocalDate fechaViaje, String origen, String destino,
+                   LocalDateTime fechaCreacion) {
         this.idReserva = idReserva;
+        this.pasajero = pasajero;
+        this.vehiculo = vehiculo;
+        this.fechaViaje = fechaViaje;
+        this.origen = origen;
+        this.destino = destino;
         this.fechaCreacion = fechaCreacion;
         this.estado = EstadoReserva.ACTIVA;
-        this.destino = destino;
-        this.origen = origen;
-        this.fechaViaje = fechaViaje;
-        this.vehiculo = vehiculo;
-        this.pasajero = pasajero;
     }
 
     public LocalDateTime getFechaCreacion() { return fechaCreacion; }
