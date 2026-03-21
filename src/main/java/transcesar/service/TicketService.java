@@ -101,4 +101,40 @@ public class TicketService {
     }
 
 
+    public void resumenDiaActual() {
+        LocalDate hoy = LocalDate.now();
+        List<Ticket> tickets = ticketDAO.cargarTickets();
+        long totalHoy = tickets.stream()
+                .filter(t -> t.getFechaCompra().equals(hoy))
+                .count();
+        double recaudadoHoy = tickets.stream()
+                .filter(t -> t.getFechaCompra().equals(hoy))
+                .mapToDouble(Ticket::getValorFinal)
+                .sum();
+        System.out.println("===== RESUMEN DEL DÍA =====");
+        System.out.println("Fecha: " + hoy);
+        System.out.println("Tickets vendidos: " + totalHoy);
+        System.out.println("Total recaudado: $" + recaudadoHoy);
+        System.out.println("===========================");
+    }
+
+    public void listarTicketsPorFecha(LocalDate fecha) {
+        ticketDAO.cargarTickets().stream()
+                .filter(t -> t.getFechaCompra().equals(fecha))
+                .forEach(Ticket::imprimirDetalle);
+    }
+
+    public void listarTicketsPorTipoVehiculo(String tipo) {
+        ticketDAO.cargarTickets().stream()
+                .filter(t -> t.getVehiculo().getClass().getSimpleName().equalsIgnoreCase(tipo))
+                .forEach(Ticket::imprimirDetalle);
+    }
+
+    public void listarTicketsPorTipoPasajero(String tipo) {
+        ticketDAO.cargarTickets().stream()
+                .filter(t -> t.getPasajero().getTipoPasajero().equalsIgnoreCase(tipo))
+                .forEach(Ticket::imprimirDetalle);
+    }
+
+
 }
