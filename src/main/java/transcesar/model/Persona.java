@@ -1,6 +1,7 @@
 package transcesar.model;
 
 import java.time.LocalDate;
+import java.time.Period;
 
 public class Persona {
 
@@ -40,6 +41,6 @@ public class Persona {
 
     public int getEdad() {
         if (fechaNacimiento == null) return 0;
-        return LocalDate.now().getYear() - fechaNacimiento.getYear();
+        return Period.between(fechaNacimiento, LocalDate.now()).getYears();
     }
 }
