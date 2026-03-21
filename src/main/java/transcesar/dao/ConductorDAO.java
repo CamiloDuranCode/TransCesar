@@ -10,43 +10,46 @@ public class ConductorDAO {
     private static final String ARCHIVO = "conductores.txt";
 
     public void guardar(Conductor conductor) throws IOException {
-
-        BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO, true));
-
-        String linea = conductor.getNombre() + ";" +
-                conductor.getCedula() + ";" +
-                conductor.getFechaNacimiento() + ";" +
-                conductor.getNumLicencia() + ";" +
-                conductor.getCategoria();
-
-        bw.write(linea);
-        bw.newLine();
-        bw.close();
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO, true))) {
+            String linea = conductor.getCedula() + ";" +
+                    conductor.getNombre() + ";" +
+                    conductor.getFechaNacimiento() + ";" +
+                    conductor.getNumLicencia() + ";" +
+                    conductor.getCategoria();
+            bw.write(linea);
+            bw.newLine();
+        }
     }
 
     public List<Conductor> cargar() throws IOException {
-
         List<Conductor> lista = new ArrayList<>();
+        File archivo = new File(ARCHIVO);
+        if (!archivo.exists()) return lista;
 
-        BufferedReader br = new BufferedReader(new FileReader(ARCHIVO));
-        String linea;
-
-        while((linea = br.readLine()) != null){
-
-            String[] datos = linea.split(";");
-
-            LocalDate fechaNac = LocalDate.parse(datos[2]);
-
-            Conductor c = new Conductor(
-                    datos[1],
-                    datos[0],
-                    fechaNac,
-                    datos[3],
-                    datos[3]
-            );
-            lista.add(c);
+        try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
+            String linea;
+            while ((linea = br.readLine()) != null) {
+                String[] datos = linea.split(";");
+                if (datos.length >= 5) {
+                    LocalDate fechaNac = LocalDate.parse(datos[2].trim());
+                    Conductor c = new Conductor(
+                            datos[0].trim(),
+                            datos[1].trim(),
+                            fechaNac,
+                            datos[3].trim(),
+                            datos[4].trim()
+                    );
+                    lista.add(c);
+                }
+            }
         }
-        br.close();
         return lista;
+    }
+
+    public Conductor buscarPorCedula(String cedula) throws IOException {
+        return cargar().stream()
+                .filter(c -> c.getCedula().equals(cedula))
+                .findFirst()
+                .orElse(null);
     }
 }
