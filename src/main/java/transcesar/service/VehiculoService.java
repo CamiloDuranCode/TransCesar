@@ -70,6 +70,16 @@ public class VehiculoService {
         }
     }
 
+    public void listarRutas() {
+        if (rutas.isEmpty()) {
+            System.out.println("No hay rutas registradas.");
+            return;
+        }
+        for (Ruta r : rutas) {
+            r.imprimirDetalle();
+        }
+    }
+
     public void vehiculoConMasTickets(List<Ticket> tickets) {
         if (tickets.isEmpty()) {
             System.out.println("No hay tickets registrados.");
