@@ -14,22 +14,21 @@ public class Reserva implements Imprimible{
     private EstadoReserva estado;
     private LocalDateTime fechaCreacion;
 
-    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo, LocalDate fechaViaje, String origen, String destino, LocalDate fechaCreacion) {
+    public Reserva(String idReserva, Pasajero pasajero, Vehiculo vehiculo, LocalDate fechaViaje, String origen, String destino, LocalDateTime fechaCreacion) {
     }
 
     public enum EstadoReserva {
-        PENDIENTE,
-        CONFIRMADA,
-        CANCELADA,
-        COMPLETADA,
+        ACTIVA,
+        CONVERTIDA,
+        CANCELADA
     }
 
     public Reserva(String idReserva, LocalDateTime fechaCreacion,
-                   EstadoReserva estado, String destino, String origen,
+                   String destino, String origen,
                    LocalDate fechaViaje, Vehiculo vehiculo, Pasajero pasajero) {
         this.idReserva = idReserva;
         this.fechaCreacion = fechaCreacion;
-        this.estado = estado;
+        this.estado = EstadoReserva.ACTIVA;
         this.destino = destino;
         this.origen = origen;
         this.fechaViaje = fechaViaje;
@@ -69,16 +68,24 @@ public class Reserva implements Imprimible{
 
     public void setIdReserva(String idReserva) { this.idReserva = idReserva; }
 
-    public boolean confirmar() {
-        if (estado == EstadoReserva.PENDIENTE) {
-            this.estado = EstadoReserva.CONFIRMADA;
+
+    public boolean estaVencida() {
+        LocalDateTime ahora = LocalDateTime.now();
+        return estado == EstadoReserva.ACTIVA &&
+                fechaCreacion.plusHours(24).isBefore(ahora);
+    }
+
+
+    public boolean convertir() {
+        if (estado == EstadoReserva.ACTIVA) {
+            this.estado = EstadoReserva.CONVERTIDA;
             return true;
         }
         return false;
     }
 
     public boolean cancelar() {
-        if (estado == EstadoReserva.PENDIENTE || estado == EstadoReserva.CONFIRMADA) {
+        if (estado == EstadoReserva.ACTIVA) {
             this.estado = EstadoReserva.CANCELADA;
             return true;
         }

@@ -9,6 +9,7 @@ import transcesar.model.Vehiculo;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class TicketService {
@@ -30,12 +31,14 @@ public class TicketService {
     public void venderTicket(Pasajero pasajero, Conductor conductor, double tarifaBase,
                              String origen, String destino) throws IOException {
 
-        if(cuposDisponibles <= 0){
-            System.out.println("No hay cupos disponibles");
+        Vehiculo vehiculo = null;
+
+        if (vehiculo.getContadorPasajeros() >= vehiculo.getCapacidadMaxima()) {
+            System.out.println("No hay cupos disponibles en el vehículo " + vehiculo.getPlaca());
             return;
         }
 
-        Vehiculo vehiculo = conductor.getVehiculo();
+        vehiculo = conductor.getVehiculo();
 
 
         if (vehiculo == null) {
@@ -51,7 +54,7 @@ public class TicketService {
                 origen,
                 destino
         );
-        
+
         ticketDAO.guardar(ticket);
 
         actualizarEstadisticas(ticket);
@@ -77,6 +80,10 @@ public class TicketService {
             default:
                 pasajerosPorTipo.put("REGULAR", pasajerosPorTipo.get("REGULAR") + 1);
         }
+    }
+
+    public List<Ticket> getTickets() {
+        return ticketDAO.cargarTickets();
     }
 
     public void mostrarEstadisticas() {
