@@ -7,7 +7,7 @@ import java.util.*;
 
 public class PasajeroDAO {
 
-    private static final String ARCHIVO = "pasajeros.txt";
+    private static final String ARCHIVO = "datos/pasajeros.txt";
 
     public void guardar(Pasajero pasajero) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO, true))) {

@@ -10,7 +10,7 @@ import java.util.*;
 
 public class TicketDAO {
 
-    private static final String ARCHIVO = "tickets.txt";
+    private static final String ARCHIVO = "datos/tickets.txt";
     private final PasajeroDAO pasajeroDAO = new PasajeroDAO();
     private final VehiculoDAO vehiculoDAO = new VehiculoDAO();
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RutaDao {
 
-    private static final String ARCHIVO = "rutas.txt";
+    private static final String ARCHIVO = "datos/rutas.txt";
     private static final String SEP     = ";";
 
     public void guardarRuta(Ruta ruta) {

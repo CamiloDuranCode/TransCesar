@@ -12,9 +12,9 @@ import java.util.List;
 
 public class VehiculoDAO {
 
-    private static final String ARCHIVO_BUSETA   = "buseta.txt";
-    private static final String ARCHIVO_BUS      = "bus.txt";
-    private static final String ARCHIVO_MICROBUS = "microbus.txt";
+    private static final String ARCHIVO_BUSETA   = "datos/buseta.txt";
+    private static final String ARCHIVO_BUS      = "datos/bus.txt";
+    private static final String ARCHIVO_MICROBUS = "datos/microbus.txt";
     private static final String SEP              = ";";
 
     private RutaDao rutaDao = new RutaDao();

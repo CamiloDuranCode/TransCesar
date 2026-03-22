@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class ReservaDAO {
 
-    private static final String ARCHIVO_RESERVAS = "reservas.txt";
+    private static final String ARCHIVO_RESERVAS = "datos/reservas.txt";
 
     private PasajeroDAO pasajeroDAO = new PasajeroDAO();
     private VehiculoDAO vehiculoDAO = new VehiculoDAO();

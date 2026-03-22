@@ -7,7 +7,7 @@ import java.util.*;
 
 public class ConductorDAO {
 
-    private static final String ARCHIVO = "conductores.txt";
+    private static final String ARCHIVO = "datos/conductores.txt";
 
     public void guardar(Conductor conductor) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(ARCHIVO, true))) {
