@@ -56,6 +56,7 @@ public class VehiculoService {
             return;
         }
         vehiculo.setConductor(conductor);
+        conductor.setVehiculo(vehiculo);
         System.out.println("Conductor " + conductor.getNombre()
                 + " asignado al vehículo " + vehiculo.getPlaca());
     }
