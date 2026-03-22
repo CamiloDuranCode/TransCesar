@@ -55,6 +55,7 @@ public class VehiculoService {
             System.out.println("Error: el conductor no tiene licencia registrada.");
             return;
         }
+        vehiculo.setConductor(conductor);
         System.out.println("Conductor " + conductor.getNombre()
                 + " asignado al vehículo " + vehiculo.getPlaca());
     }
