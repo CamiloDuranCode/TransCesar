@@ -3,6 +3,8 @@ package transcesar.view;
 import transcesar.model.Ticket;
 import transcesar.service.TicketService;
 import transcesar.service.VehiculoService;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -25,8 +27,12 @@ public class MenuEstadisticas {
             switch (opcion) {
                 case 1 -> ticketService.mostrarEstadisticas();
                 case 2 -> {
-                    List<Ticket> tickets = ticketService.getTickets();
-                    vehiculoService.vehiculoConMasTickets(tickets);
+                    try {
+                        List<Ticket> tickets = ticketService.getTickets();
+                        vehiculoService.vehiculoConMasTickets(tickets);
+                    } catch (IOException e) {
+                        System.out.println("Error al obtener tickets: " + e.getMessage());
+                    }
                 }
                 case 0 -> System.out.println("Volviendo...");
                 default -> System.out.println("Opción no válida.");

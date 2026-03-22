@@ -6,6 +6,8 @@ import transcesar.model.Ticket;
 import transcesar.service.PersonaService;
 import transcesar.service.TicketService;
 import transcesar.service.VehiculoService;
+
+import java.io.IOException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -29,11 +31,15 @@ public class MenuTickets {
             switch (opcion) {
                 case 1 -> venderTicket();
                 case 2 -> {
-                    List<Ticket> tickets = ticketService.getTickets();
-                    if (tickets.isEmpty()) {
-                        System.out.println("No hay tickets registrados.");
-                    } else {
-                        tickets.forEach(Ticket::imprimirDetalle);
+                    try {
+                        List<Ticket> tickets = ticketService.getTickets();
+                        if (tickets.isEmpty()) {
+                            System.out.println("No hay tickets registrados.");
+                        } else {
+                            tickets.forEach(Ticket::imprimirDetalle);
+                        }
+                    } catch (IOException e) {
+                        System.out.println("Error al listar tickets: " + e.getMessage());
                     }
                 }
                 case 0 -> System.out.println("Volviendo...");

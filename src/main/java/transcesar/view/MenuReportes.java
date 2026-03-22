@@ -35,20 +35,32 @@ public class MenuReportes {
     }
 
     private static void reportePorFecha() {
-        System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
-        String fecha = scanner.next();
-        ticketService.listarTicketsPorFecha(LocalDate.parse(fecha));
+        try {
+            System.out.print("Ingrese la fecha (YYYY-MM-DD): ");
+            String fecha = scanner.next();
+            ticketService.listarTicketsPorFecha(LocalDate.parse(fecha));
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private static void reportePorTipoVehiculo() {
-        System.out.print("Tipo de vehículo (Bus/Buseta/MicroBus): ");
-        String tipo = scanner.next();
-        ticketService.listarTicketsPorTipoVehiculo(tipo);
+        try {
+            System.out.print("Tipo de vehículo (Bus/Buseta/MicroBus): ");
+            String tipo = scanner.next();
+            ticketService.listarTicketsPorTipoVehiculo(tipo);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 
     private static void reportePorTipoPasajero() {
-        System.out.print("Tipo de pasajero (Regular/Estudiante/AdultoMayor): ");
-        String tipo = scanner.next();
-        ticketService.listarTicketsPorTipoPasajero(tipo);
+        try {
+            System.out.print("Tipo de pasajero (Regular/Estudiante/AdultoMayor): ");
+            String tipo = scanner.next();
+            ticketService.listarTicketsPorTipoPasajero(tipo);
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
     }
 }
