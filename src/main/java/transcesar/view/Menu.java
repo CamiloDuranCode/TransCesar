@@ -15,6 +15,7 @@ public class Menu {
             System.out.println("4. Consultas y Estadísticas");
             System.out.println("5. Reportes");
             System.out.println("6. Reservas");
+            System.out.println("7. Gestión de Rutas");
             System.out.println("0. Salir");
             System.out.print("Seleccione una opción: ");
             opcion = scanner.nextInt();
@@ -27,6 +28,7 @@ public class Menu {
                     case 4 -> MenuEstadisticas.mostrar();
                     case 5 -> MenuReportes.mostrar();
                     case 6 -> MenuReservas.mostrar();
+                    case 7 -> MenuRutas.mostrar();
                     case 0 -> System.out.println("Hasta luego.");
                     default -> System.out.println("Opción no válida.");
                 }
