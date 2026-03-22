@@ -1,11 +1,12 @@
 package transcesar.model;
 
-public abstract class Vehiculo implements Imprimible {
+public abstract class   Vehiculo implements Imprimible {
     protected String placa;
     protected Ruta ruta;
     protected int capacidadMaxima;
     protected int contadorPasajeros;
     protected boolean estado;
+    private Conductor conductor;
 
     public Vehiculo(String placa, Ruta ruta, int capacidadMaxima, boolean estado) {
         this.placa = placa;
@@ -15,8 +16,11 @@ public abstract class Vehiculo implements Imprimible {
         this.estado = estado;
     }
 
+
     public abstract double tarifabase();
     public abstract String getTipoVehiculo();
+
+    public Conductor getConductor() { return conductor; }
 
     public String getPlaca() {
         return placa;
@@ -55,6 +59,9 @@ public abstract class Vehiculo implements Imprimible {
     public void setEstado(boolean estado) {
         this.estado = estado;
     }
+    public void setConductor(Conductor conductor) { this.conductor = conductor; }
+
+
 
     public abstract void imprimirDetalle();
 

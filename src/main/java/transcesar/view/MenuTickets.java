@@ -31,6 +31,7 @@ public class MenuTickets {
             switch (opcion) {
                 case 1 -> venderTicket();
                 case 2 -> {
+
                     try {
                         List<Ticket> tickets = ticketService.getTickets();
                         if (tickets.isEmpty()) {
