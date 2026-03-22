@@ -10,6 +10,7 @@ import transcesar.model.MicroBus;
 import transcesar.model.Ruta;
 import transcesar.model.Ticket;
 import transcesar.model.Vehiculo;
+import transcesar.dao.ConductorDAO;
 
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class VehiculoService {
     private final VehiculoDAO vehiculoDAO;
     private final RutaDao rutaDao = new RutaDao();
     private final List<Vehiculo> vehiculos;
+    private final ConductorDAO conductorDAO = new ConductorDAO();
 
     public VehiculoService() {
         this.vehiculoDAO = new VehiculoDAO();
@@ -57,8 +59,13 @@ public class VehiculoService {
         }
         vehiculo.setConductor(conductor);
         conductor.setVehiculo(vehiculo);
-        System.out.println("Conductor " + conductor.getNombre()
-                + " asignado al vehículo " + vehiculo.getPlaca());
+        try {
+            conductorDAO.guardar(conductor);
+            System.out.println("Conductor " + conductor.getNombre()
+                    + " asignado al vehículo " + vehiculo.getPlaca());
+        } catch (Exception e) {
+            System.out.println("Error al guardar la asignación: " + e.getMessage());
+        }
     }
 
     public void listarVehiculos() {
