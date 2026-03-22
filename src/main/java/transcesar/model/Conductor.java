@@ -21,6 +21,10 @@ public class Conductor extends Persona {
         this.categoria = categoria;
     }
 
+    public void setVehiculo(Vehiculo vehiculo) {
+        this.vehiculo = vehiculo;
+    }
+
     public Vehiculo getVehiculo(){return vehiculo;}
 
     public String getNumLicencia() {
